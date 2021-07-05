@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingAlgorithm_Visualized", "SortingAlgorithm_Visualized\SortingAlgorithm_Visualized.csproj", "{21CCC996-749C-4C34-8775-8F554A99DC8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21CCC996-749C-4C34-8775-8F554A99DC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CCC996-749C-4C34-8775-8F554A99DC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CCC996-749C-4C34-8775-8F554A99DC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CCC996-749C-4C34-8775-8F554A99DC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2BA567F-CD8C-40F3-A2CA-9936A96DE0A4}
+	EndGlobalSection
+EndGlobal
