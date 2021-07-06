@@ -1,54 +1,84 @@
-﻿using System;
+﻿/* 
+ * SortingAlgorithm_Visualized
+ * 
+ * Purpose: to visualize some common sorting algorithm using console screen
+ * 
+ * Author: Huy Pham
+ * 
+ * How to run this code: you can either run the executable (.exe) 
+ *		or open with Visual Studio and run in debug mode
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
+/* REMOVE AFTER FINISH */
 using HPCSharpLibrary;
+/* REMOVE AFTER FINISH */
 
 namespace SortingAlgorithm_Visualized
 {
 	class Program
 	{
+		// store the list of index to change the bar colors at that index
 		static List<int> indexOfNumberToChangeItsColor = new List<int>();
 		static void Main(string[] args)
 		{
+			// make console in full screen
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-			int[] arr = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+			int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+
+			// shuffle the list
 			Random rand = new Random();
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
-			/*for (int i = 0; i < arr.Length; i++)
-			{
-				Console.Write(arr[i].ToString() + " ");
-			}
-			Console.WriteLine();
-			List<int> l = new List<int>();
-			l.Add(1);
-			l.Add(2);
-			DrawBarChart(arr, ConsoleColor.Red, l, ConsoleColor.Yellow);*/
+
+			Console.WriteLine("\t--- BUBBLE SORT ---");
+			Console.WriteLine("Swap two numbers if they are in wrong order. The greatest number tends to 'bubble' to the end");
+			Thread.Sleep(5000);
+			Console.Clear();
+			BubbleSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
+			Console.WriteLine("\t--- SELECTION SORT ---");
+			Console.WriteLine("Find the minimum value and put it at the beginning.");
+			Thread.Sleep(5000);
+			Console.Clear();
+			SelectionSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
+			Console.WriteLine("\t--- INSERTION SORT ---");
+			Console.WriteLine("Like sorting your cards. Pick a number and put it at the right place.");
+			Thread.Sleep(5000);
+			Console.Clear();
 			InsertionSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
+			/* FORMAT - REMOVE WHEN FINISH 
+			Console.WriteLine("\t--- ... SORT ---");
+			Console.WriteLine("DESCRIPTION");
+			Thread.Sleep(5000);
+			Console.Clear();
+			InsertionSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+			 FORMAT - REMOVE WHEN FINISH */
 		}
-		public static void PrintArray(int[] numberArray)
-		{
-			foreach (int number in numberArray)
-			{
-				Console.Write(" " + number.ToString() + " ");
-			}
-		}
-		public static void PrintArray(int[] numberArray, List<int> indexOfNumberToChangeItsColor)
-		{
-			for (int i = 0; i < numberArray.Length; i++)
-			{
-				foreach (int index in indexOfNumberToChangeItsColor)
-				{
-					if (i == index)
-					{
-						Console.ForegroundColor = ConsoleColor.Red;
-					}
-				}
-				Console.Write(" " + numberArray[i].ToString() + " ");
-				Console.ResetColor();
-			}
-		}
+		/// <summary>
+		/// Draw a bar chart vertically, all bar in one specified color
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="barColor">The color of all bars</param>
 		public static void DrawBarChart(int[] numberArray, ConsoleColor barColor)
 		{
 			for (int i = 0; i < numberArray.Length; i++)
@@ -65,15 +95,22 @@ namespace SortingAlgorithm_Visualized
 			}
 			Console.BackgroundColor = ConsoleColor.Black;
 		}
-		public static void DrawBarChart(int[] numberArray, ConsoleColor normalBarColor, 
-			List<int> indexOfNumberToChangeItsColor, ConsoleColor highlightColor)
+		/// <summary>
+		/// Draw a bar chart vertically, specified bars in "highlight" color, other bars in normal color
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="normalBarColor"></param>
+		/// <param name="indexOfNumberToChangeItsColor">Index of numbers to be in highlight color</param>
+		/// <param name="highlightColor"></param>
+		public static void DrawBarChart(int[] numberArray, ConsoleColor normalBarColor,
+			List<int> indexOfNumbersToChangeItsColor, ConsoleColor highlightColor)
 		{
 			for (int i = 0; i < numberArray.Length; i++)
 			{
 				Console.BackgroundColor = normalBarColor;
-				for (int k = 0; k < indexOfNumberToChangeItsColor.Count; k++)
+				for (int k = 0; k < indexOfNumbersToChangeItsColor.Count; k++)
 				{
-					if (indexOfNumberToChangeItsColor[k] == i)
+					if (indexOfNumbersToChangeItsColor[k] == i)
 					{
 						Console.BackgroundColor = highlightColor;
 						break;
@@ -84,7 +121,7 @@ namespace SortingAlgorithm_Visualized
 				
 				Console.Beep(300 * numberArray[i], 100);
 
-				*/ 
+				*/
 				for (int j = 0; j < numberArray[i]; j++)
 				{
 					Console.Write(" ");
@@ -92,11 +129,43 @@ namespace SortingAlgorithm_Visualized
 				Console.BackgroundColor = ConsoleColor.Black;
 				Console.Write(" " + numberArray[i].ToString());
 				Console.WriteLine('\n');
-				
+
 				Console.BackgroundColor = normalBarColor;
 			}
 			Console.BackgroundColor = ConsoleColor.Black;
 		}
+		/// <summary>
+		/// Draw a bar chart vertically, ONLY ONE bar in "highlight" color, other bars in normal color
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="normalBarColor"></param>
+		/// <param name="indexOfNumberToChangeItsColor">The index of number to be in highlight color</param>
+		/// <param name="highlightColor"></param>
+		public static void DrawBarChart(int[] numberArray, ConsoleColor normalBarColor,
+			int indexOfNumberToChangeItsColor, ConsoleColor highlightColor)
+		{
+			for (int i = 0; i < numberArray.Length; i++)
+			{
+				Console.BackgroundColor = normalBarColor;
+				if (indexOfNumberToChangeItsColor == i)
+				{
+					Console.BackgroundColor = highlightColor;
+				}
+				for (int j = 0; j < numberArray[i]; j++)
+				{
+					Console.Write(" ");
+				}
+				Console.BackgroundColor = ConsoleColor.Black;
+				Console.Write(" " + numberArray[i].ToString());
+				Console.WriteLine('\n');
+
+				Console.BackgroundColor = normalBarColor;
+			}
+			Console.BackgroundColor = ConsoleColor.Black;
+		}
+		/// <summary>
+		/// Clear the console line where the cursor is on
+		/// </summary>
 		public static void ClearCurrentConsoleLine()
 		{
 			int currentLineCursor = Console.CursorTop;
@@ -104,6 +173,9 @@ namespace SortingAlgorithm_Visualized
 			Console.Write(new string(' ', Console.WindowWidth));
 			Console.SetCursorPosition(0, currentLineCursor);
 		}
+		/// <summary>
+		/// Clear the entire console screen, same as Console.Clear() but no lags occur
+		/// </summary>
 		public static void ClearConsoleScreen()
 		{
 			int currentLineCursor = Console.CursorTop;
@@ -114,10 +186,14 @@ namespace SortingAlgorithm_Visualized
 			}
 			Console.SetCursorPosition(0, 0);
 		}
-		//CheckIfArraySorted(numberArray, ConsoleColor.Green, ConsoleColor.Red);
 
+		/// <summary>
+		/// Check whether the array is in ascending order
+		/// </summary>
+		/// <param name="numberArray"></param>
 		public static void CheckIfArraySorted(int[] numberArray)
 		{
+			bool isArraySorted = true;
 			indexOfNumberToChangeItsColor.Clear();
 			for (int i = 0; i < numberArray.Length - 1; i++)
 			{
@@ -125,17 +201,32 @@ namespace SortingAlgorithm_Visualized
 				{
 					indexOfNumberToChangeItsColor.Add(i);
 					indexOfNumberToChangeItsColor.Add(i + 1);
+					isArraySorted = false;
 				}
 			}
 			DrawBarChart(numberArray, ConsoleColor.Green, indexOfNumberToChangeItsColor, ConsoleColor.Red);
+			if (isArraySorted)
+			{ 
+				Console.WriteLine("\nArray is sorted in ascending order."); 
+			}
+			else
+			{
+				Console.WriteLine("\nArray is NOT sorted!");
+			}
 		}
+		/// <summary>
+		/// Check whether the array is in ascending order, numbers in wrong order in "wrongBarColor" color
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="normalBarColor"></param>
+		/// <param name="wrongBarColor"></param>
 		public static void CheckIfArraySorted(int[] numberArray, ConsoleColor normalBarColor, ConsoleColor wrongBarColor)
 		{
 			bool isArraySorted = true;
 			for (int i = 1; i < numberArray.Length; i++)
 			{
 				Console.BackgroundColor = ConsoleColor.Black;
-				if (numberArray[i]<numberArray[i-1])
+				if (numberArray[i] < numberArray[i - 1])
 				{
 					isArraySorted = false;
 					Console.BackgroundColor = wrongBarColor;
@@ -188,20 +279,52 @@ namespace SortingAlgorithm_Visualized
 						/* VISUALIZED */
 						indexOfNumberToChangeItsColor.Add(i);
 						indexOfNumberToChangeItsColor.Add(i + 1);
-						DrawBarChart(numberArray, ConsoleColor.Red, 
+						DrawBarChart(numberArray, ConsoleColor.Red,
 							indexOfNumberToChangeItsColor, ConsoleColor.Yellow);
-						Thread.Sleep(500);
+						Thread.Sleep(400);
 						indexOfNumberToChangeItsColor.Clear();
 						ClearConsoleScreen();
 						/* ********* */
 					}
 				}
 			} while (isThereAnySwap);
-			DrawBarChart(numberArray, ConsoleColor.Green);
-			Console.WriteLine("\nSorted.");
+			CheckIfArraySorted(numberArray);
 		}
 		#endregion
-		#region Insertion Sort Visualized
+		#region Selection Sort
+		public static void SelectionSort_Visualized(int[] numberArray)
+		{
+			int minValue;
+			int minIndex = 0;
+			for (int i = 0; i < numberArray.Length; i++)
+			{
+				minValue = numberArray[i];
+				DrawBarChart(numberArray, ConsoleColor.White, i, ConsoleColor.Red);
+				Thread.Sleep(200);
+				ClearConsoleScreen();
+				for (int j = i; j < numberArray.Length; j++)
+				{
+					if (numberArray[j] < minValue)
+					{
+						minValue = numberArray[j];
+						minIndex = j;
+						DrawBarChart(numberArray, ConsoleColor.White, minIndex, ConsoleColor.Red);
+						Thread.Sleep(200);
+						ClearConsoleScreen();
+					}
+				}
+				if (minValue != numberArray[i])
+				{
+					Utility.SwapTwoNumbers(ref numberArray[i], ref numberArray[minIndex]);
+				}
+				DrawBarChart(numberArray, ConsoleColor.White, minIndex, ConsoleColor.Red);
+				Thread.Sleep(200);
+				ClearConsoleScreen();
+			}
+			CheckIfArraySorted(numberArray);
+		}
+		#endregion
+		#region Insertion Sort
 		private static void InsertionSort_Visualized(int[] numberArray)
 		{
 			for (int i = 1; i < numberArray.Length; i++)
@@ -228,7 +351,7 @@ namespace SortingAlgorithm_Visualized
 					}
 				}
 			}
-			CheckIfArraySorted(numberArray, ConsoleColor.Green, ConsoleColor.Red);
+			CheckIfArraySorted(numberArray);
 		}
 		#endregion
 	}
