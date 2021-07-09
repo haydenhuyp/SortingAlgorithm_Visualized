@@ -33,7 +33,7 @@ namespace SortingAlgorithm_Visualized
 			// shuffle the list
 			Random rand = new Random();
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
-
+			/*
 			Console.WriteLine("\t--- BUBBLE SORT ---");
 			Console.WriteLine("Swap two numbers if they are in wrong order. The greatest number tends to 'bubble' to the end");
 			Thread.Sleep(5000);
@@ -63,7 +63,7 @@ namespace SortingAlgorithm_Visualized
 			Console.Clear();
 			// shuffle the list
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
-
+			
 			/* FORMAT - REMOVE WHEN FINISH 
 			Console.WriteLine("\t--- ... SORT ---");
 			Console.WriteLine("DESCRIPTION");
@@ -75,6 +75,16 @@ namespace SortingAlgorithm_Visualized
 			// shuffle the list
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
 			 FORMAT - REMOVE WHEN FINISH */
+			Console.WriteLine("\t--- QUICK SORT ---");
+			Console.WriteLine("Pick a pivot, all the numbers greater than the pivot should be moved to the right hand side, " +
+				"the numbers less than the pivot should be moved to the left. Repeat");
+			Thread.Sleep(5000);
+			Console.Clear();
+			QuickSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
 		}
 		#region Print Logo
 		/// <summary>
@@ -105,6 +115,7 @@ namespace SortingAlgorithm_Visualized
 			Console.ResetColor();
 		}
 		#endregion
+		#region Draw Bar Chart
 		/// <summary>
 		/// Draw a bar chart vertically, all bar in one specified color
 		/// </summary>
@@ -194,6 +205,7 @@ namespace SortingAlgorithm_Visualized
 			}
 			Console.BackgroundColor = ConsoleColor.Black;
 		}
+		#endregion
 		/// <summary>
 		/// Clear the console line where the cursor is on
 		/// </summary>
@@ -224,6 +236,7 @@ namespace SortingAlgorithm_Visualized
 		/// <param name="numberArray"></param>
 		public static void CheckIfArraySorted(int[] numberArray)
 		{
+			ClearConsoleScreen();
 			bool isArraySorted = true;
 			indexOfNumberToChangeItsColor.Clear();
 			for (int i = 0; i < numberArray.Length - 1; i++)
@@ -253,6 +266,7 @@ namespace SortingAlgorithm_Visualized
 		/// <param name="wrongBarColor"></param>
 		public static void CheckIfArraySorted(int[] numberArray, ConsoleColor normalBarColor, ConsoleColor wrongBarColor)
 		{
+			ClearConsoleScreen();
 			bool isArraySorted = true;
 			for (int i = 1; i < numberArray.Length; i++)
 			{
@@ -383,6 +397,73 @@ namespace SortingAlgorithm_Visualized
 				}
 			}
 			CheckIfArraySorted(numberArray);
+		}
+		#endregion
+		#region Quick Sort
+		/// <summary>
+		/// Sort the given number arry using Quick Sort algorithm
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <returns></returns>
+		public static void QuickSort_Visualized(int[] numberArray)
+		{
+			QuickSort(numberArray, 0, numberArray.Length - 1);
+			CheckIfArraySorted(numberArray);
+		}
+		/// <summary>
+		/// This method is for the recursion of quick sort method
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="low">Index of the first element of an array</param>
+		/// <param name="high">Index of the last element of an array</param>
+		public static void QuickSort(int[] numberArray, int low, int high)
+		{
+			if (low >= high)
+			{
+				return;
+			}
+			int pivot = numberArray[(low + high) / 2];
+			int partitionIndex = Partition(numberArray, low, high, pivot);
+			QuickSort(numberArray, low, partitionIndex - 1);
+			QuickSort(numberArray, partitionIndex, high);
+		}
+		/// <summary>
+		/// Find the partition index
+		/// </summary>
+		/// <param name="numberArray"></param>
+		/// <param name="low">Index of the first element of an array</param>
+		/// <param name="high">Index of the last element of an array</param>
+		/// <param name="pivot">Value of chosen pivot</param>
+		/// <returns></returns>
+		public static int Partition(int[] numberArray, int low, int high, int pivot)
+		{
+			List<int> listOfIndexToChangeItsColor = new List<int>();
+			for (int i = low; i < high; i++)
+			{
+				listOfIndexToChangeItsColor.Add(i);
+			}
+
+			while (low <= high)
+			{
+				while (numberArray[low] < pivot)
+				{
+					low++;
+				}
+				while (numberArray[high] > pivot)
+				{
+					high--;
+				}
+				if (low <= high)
+				{
+					Utility.SwapTwoNumbers(ref numberArray[low], ref numberArray[high]);
+					low++;
+					high--;
+				}
+			}
+			ClearConsoleScreen();
+			DrawBarChart(numberArray, ConsoleColor.White, listOfIndexToChangeItsColor, ConsoleColor.Red);
+			Thread.Sleep(300);
+			return low;
 		}
 		#endregion
 	}
