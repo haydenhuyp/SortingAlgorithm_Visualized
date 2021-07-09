@@ -26,6 +26,8 @@ namespace SortingAlgorithm_Visualized
 		{
 			// make console in full screen
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+			PrintLogo();
+			Thread.Sleep(5000);
 			int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 
 			// shuffle the list
@@ -74,6 +76,35 @@ namespace SortingAlgorithm_Visualized
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
 			 FORMAT - REMOVE WHEN FINISH */
 		}
+		#region Print Logo
+		/// <summary>
+		/// Print the logo: "Visualized Sorting Algorithm"
+		/// </summary>
+		private static void PrintLogo()
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine(@"__      ___                 _ _             _");
+			Console.WriteLine(@"\ \    / (_)               | (_)           | |");
+			Console.WriteLine(@" \ \  / / _ ___ _   _  __ _| |_ _______  __| |");
+			Console.WriteLine(@"  \ \/ / | / __| | | |/ _` | | |_  / _ \/ _` |");
+			Console.WriteLine(@"   \  /  | \__ \ |_| | (_| | | |/ /  __/ (_| |");
+			Console.WriteLine(@"    \/   |_|___/\__,_|\__,_|_|_/___\___|\__,_|");
+			Console.ResetColor();
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine(@"");
+			Console.WriteLine(@"  _____            _   _                        _                  _ _   _");
+			Console.WriteLine(@" / ____|          | | (_)                 /\   | |                (_) | | |");
+			Console.WriteLine(@"| (___   ___  _ __| |_ _ _ __   __ _     /  \  | | __ _  ___  _ __ _| |_| |__  _ __ ___  ___");
+			Console.WriteLine(@" \___ \ / _ \| '__| __| | '_ \ / _` |   / /\ \ | |/ _` |/ _ \| '__| | __| '_ \| '_ ` _ \/ __|");
+			Console.WriteLine(@" ____) | (_) | |  | |_| | | | | (_| |  / ____ \| | (_| | (_) | |  | | |_| | | | | | | | \__ \");
+			Console.WriteLine(@"|_____/ \___/|_|   \__|_|_| |_|\__, | /_/    \_\_|\__, |\___/|_|  |_|\__|_| |_|_| |_| |_|___/");
+			Console.WriteLine(@"                                __/ |              __/ |");
+			Console.WriteLine(@"			       |___/              |___/");
+			Console.BackgroundColor = ConsoleColor.DarkBlue;
+			Console.WriteLine("\n\n-by Huy Pham");
+			Console.ResetColor();
+		}
+		#endregion
 		/// <summary>
 		/// Draw a bar chart vertically, all bar in one specified color
 		/// </summary>
