@@ -64,11 +64,21 @@ namespace SortingAlgorithm_Visualized
 			// shuffle the list
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
 
-			*/Console.WriteLine("\t--- COCKTAIL SHAKER SORT ---");
+			Console.WriteLine("\t--- COCKTAIL SHAKER SORT ---");
 			Console.WriteLine("BUBBLE SORT IN TWO DIRECTIONS");
 			Thread.Sleep(5000);
 			Console.Clear();
 			CocktailShakerSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
+			*/Console.WriteLine("\t--- BOGO SORT ---");
+			Console.WriteLine("RANDOMLY SHUFFLE LIST UNTIL IT'S SORTED");
+			Thread.Sleep(5000);
+			Console.Clear();
+			BogoSort_Visualized(arr);
 			Thread.Sleep(3000);
 			Console.Clear();
 			// shuffle the list
@@ -516,6 +526,34 @@ namespace SortingAlgorithm_Visualized
 			DrawBarChart(numberArray, ConsoleColor.White, listOfIndexToChangeItsColor, ConsoleColor.Red);
 			Thread.Sleep(300);
 			return low;
+		}
+		#endregion
+		#region Bogo Sort
+		public static void BogoSort_Visualized(int[] numberArray)
+		{
+			int i = 0;
+			Random rand = new Random();
+			while (!CheckIfArraySortedAscendingly(numberArray) && (++i < 100))
+			{
+				numberArray = numberArray.OrderBy(x => rand.Next()).ToArray();
+
+				/* VISUALIZED */
+				ClearConsoleScreen();
+				DrawBarChart(numberArray, ConsoleColor.White);
+				Thread.Sleep(300);
+			}
+			CheckIfArraySorted(numberArray);
+		}
+		public static bool CheckIfArraySortedAscendingly(int[] numberArray)
+		{
+			for (int i = 0; i < numberArray.Length - 1; i++)
+			{
+				if (numberArray[i] > numberArray[i + 1])
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 		#endregion
 
