@@ -63,7 +63,28 @@ namespace SortingAlgorithm_Visualized
 			Console.Clear();
 			// shuffle the list
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
-			
+
+			*/Console.WriteLine("\t--- COCKTAIL SHAKER SORT ---");
+			Console.WriteLine("BUBBLE SORT IN TWO DIRECTIONS");
+			Thread.Sleep(5000);
+			Console.Clear();
+			CocktailShakerSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();/*
+
+			Console.WriteLine("\t--- QUICK SORT ---");
+			Console.WriteLine("Pick a pivot, all the numbers greater than the pivot should be moved to the right hand side, " +
+				"the numbers less than the pivot should be moved to the left. Repeat");
+			Thread.Sleep(5000);
+			Console.Clear();
+			QuickSort_Visualized(arr);
+			Thread.Sleep(3000);
+			Console.Clear();
+			// shuffle the list
+			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
 			/* FORMAT - REMOVE WHEN FINISH 
 			Console.WriteLine("\t--- ... SORT ---");
 			Console.WriteLine("DESCRIPTION");
@@ -75,16 +96,7 @@ namespace SortingAlgorithm_Visualized
 			// shuffle the list
 			arr = arr.OrderBy(x => rand.Next()).ToArray();
 			 FORMAT - REMOVE WHEN FINISH */
-			Console.WriteLine("\t--- QUICK SORT ---");
-			Console.WriteLine("Pick a pivot, all the numbers greater than the pivot should be moved to the right hand side, " +
-				"the numbers less than the pivot should be moved to the left. Repeat");
-			Thread.Sleep(5000);
-			Console.Clear();
-			QuickSort_Visualized(arr);
-			Thread.Sleep(3000);
-			Console.Clear();
-			// shuffle the list
-			arr = arr.OrderBy(x => rand.Next()).ToArray();
+
 		}
 		#region Print Logo
 		/// <summary>
@@ -399,6 +411,46 @@ namespace SortingAlgorithm_Visualized
 			CheckIfArraySorted(numberArray);
 		}
 		#endregion
+		#region Cocktail Shaker Sort
+		public static void CocktailShakerSort_Visualized(int[] numberArray)
+		{
+			bool isThereAnySwaps;
+			int i;
+			do
+			{
+				isThereAnySwaps = false;
+				for (i = 0; i < numberArray.Length - 1; i++)
+				{
+					if (numberArray[i] > numberArray[i + 1])
+					{
+						Utility.SwapTwoNumbers(ref numberArray[i], ref numberArray[i + 1]);
+
+						/* VISUALIZED */
+						ClearConsoleScreen();
+						DrawBarChart(numberArray, ConsoleColor.White, new List<int>() { i, i + 1 }, ConsoleColor.Green);
+						Thread.Sleep(400);
+
+						isThereAnySwaps = true;
+					}
+				}
+				for (i = numberArray.Length - 1; i > 0; i--)
+				{
+					if (numberArray[i - 1] > numberArray[i])
+					{
+						Utility.SwapTwoNumbers(ref numberArray[i], ref numberArray[i - 1]);
+
+						/* VISUALIZED */
+						ClearConsoleScreen();
+						DrawBarChart(numberArray, ConsoleColor.White, new List<int>() { i, i + 1 }, ConsoleColor.Red);
+						Thread.Sleep(400);
+
+						isThereAnySwaps = true;
+					}
+				}
+			} while (isThereAnySwaps);
+			CheckIfArraySorted(numberArray);
+		}
+		#endregion
 		#region Quick Sort
 		/// <summary>
 		/// Sort the given number arry using Quick Sort algorithm
@@ -466,5 +518,6 @@ namespace SortingAlgorithm_Visualized
 			return low;
 		}
 		#endregion
+
 	}
 }
